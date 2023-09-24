@@ -107,7 +107,7 @@ namespace CollectionRealisation
         //Insert item to the list and push items with bigger indexes to the tail end
         public void Insert(int index, T item)
         {
-            if (index<0||index>_size+1)
+            if (index<0||index>_size)
             {
                 throw new ArgumentOutOfRangeException();
             }
