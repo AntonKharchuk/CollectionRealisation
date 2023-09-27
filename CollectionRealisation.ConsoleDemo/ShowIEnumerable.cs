@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CollectionRealisation.ConsoleDemo
 {
-    public class ShowArrays<T>
+    public class ShowIEnumerable<T>
     {
         public static void Show(IEnumerable<T> values)
         {
