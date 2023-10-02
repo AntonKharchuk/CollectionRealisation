@@ -34,7 +34,6 @@ namespace CollectionRealisation
 
             _items = new T[capacity];
             _size = 0;
-            Cleared?.Invoke();
         }
 
         public int Count => _size;
@@ -49,6 +48,7 @@ namespace CollectionRealisation
         {
             Array.Clear(_items, 0, _size);
             _size = 0;
+            Cleared?.Invoke();
         }
 
         //go through items and search for match

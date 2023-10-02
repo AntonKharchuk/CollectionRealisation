@@ -126,6 +126,13 @@ ShowIEnumerable<double>.Show(myDoubleStack);
 //create char list
 var myCharStack = new MyStack<char>();
 
+myCharStack.Pushed += item => Console.WriteLine($"Pushed: {item}");
+myCharStack.Popped += item => Console.WriteLine($"Popped: {item}");
+myCharStack.Cleared += () => Console.WriteLine("Cleared");
+
+
+
+
 for (int i = 0; i < 5; i++)
 {
     myCharStack.Push((char)(97 + i));
