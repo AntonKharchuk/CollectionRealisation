@@ -1,17 +1,10 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace CollectionRealisation
 {
     public class MyStack<T>: IEnumerable<T>, ICollection 
     {
-
         //use this capacity with ctor()
         private const int DefaultCapacity = 4;
 
@@ -20,6 +13,10 @@ namespace CollectionRealisation
 
         //num of elements is allredy set to _items 
         private int _size;
+
+        public event Action<T> Pushed;
+        public event Action<T> Popped;
+        public event Action Cleared;
 
         //reference to ctor with int param and pass default capacity
         public MyStack() : this(DefaultCapacity)
@@ -37,6 +34,7 @@ namespace CollectionRealisation
 
             _items = new T[capacity];
             _size = 0;
+            Cleared?.Invoke();
         }
 
         public int Count => _size;
@@ -93,6 +91,9 @@ namespace CollectionRealisation
                 _size--;
                 var result = _items[_size];
                 _items[_size] = default(T)!;
+
+                Popped?.Invoke(result);
+
                 return result;
             }
             throw new InvalidOperationException("EmptyStack");
@@ -108,6 +109,7 @@ namespace CollectionRealisation
 
             _items[_size] = item;
             _size++;
+            Pushed?.Invoke(item);
         }
 
 
