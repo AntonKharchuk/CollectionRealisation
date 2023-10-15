@@ -129,36 +129,31 @@ namespace CollectionRealisation
         //copy data form this list to user's array starting from index
         public void CopyTo(Array array, int index)
         {
-            ArgumentNullException.ThrowIfNull(array);
+            if (array is null)
+            {
+                ArgumentNullException.ThrowIfNull(array);
+            }
 
-            if (array is not null && array.Rank is not 1)
+            if (array.Rank != 1)
             {
                 throw new InvalidDataException("Arr rank is not 1");
             }
+
             try
             {
-                Array.Copy(_items, 0, array!, index, _size);
-                Array.Reverse(array!, index, _size);
+                Array.Copy(_items, 0, array, index, _size);
+                Array.Reverse(array, index, _size);
             }
             catch (ArrayTypeMismatchException)
             {
                 throw new ArgumentException(nameof(array));
             }
         }
+
         public void CopyTo(T[] array, int index)
         {
-            ArgumentNullException.ThrowIfNull(array);
-
-            if (array is not null && array.Rank is not 1)
-            {
-                throw new InvalidDataException("Arr rank is not 1");
-            }
-            int srcIndex = 0;
-            int dstIndex = index + _size;
-            while (srcIndex < _size)
-            {
-                array![--dstIndex] = _items[srcIndex++];
-            }
+            CopyTo((Array)array, index);
+            // The CopyTo(T[] array, int index) method now delegates to the CopyTo(Array array, int index) method.
         }
 
         public class MyStackEnumerator : IEnumerator<T>
