@@ -1,6 +1,6 @@
 namespace CollectionRealisation.Tests
 {
-    public class Tests
+    public class ListTests
     {
         [SetUp]
         public void Setup()
