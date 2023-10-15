@@ -134,4 +134,26 @@ public class StackTests
 
         Assert.Equal(new List<int> { 3, 2, 1 }, elements);
     }
+
+    [Fact]
+    public void Peek_Should_Return_Top_Element_Without_Removing_It()
+    {
+        var stack = new MyStack<int>();
+        stack.Push(1);
+        stack.Push(2);
+        stack.Push(3);
+
+        var peekedValue = stack.Peek();
+
+        Assert.Equal(3, peekedValue); 
+        Assert.Equal(3, stack.Count); 
+    }
+
+    [Fact]
+    public void Peek_Should_Throw_InvalidOperationException_On_Empty_Stack()
+    {
+        var stack = new MyStack<int>();
+
+        Assert.Throws<InvalidOperationException>(() => stack.Peek());
+    }
 }
