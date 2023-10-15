@@ -91,4 +91,47 @@ public class StackTests
 
         Assert.False(stack.Contains(1));
     }
+
+    [Fact]
+    public void GetEnumerator_Should_Return_Enumerator_For_Generic_Enumerable()
+    {
+        var stack = new MyStack<int>();
+        stack.Push(1);
+        stack.Push(2);
+        stack.Push(3);
+
+        IEnumerator<int> enumerator = stack.GetEnumerator();
+
+        Assert.NotNull(enumerator);
+    }
+
+    [Fact]
+    public void GetEnumerator_Should_Return_Non_Generic_Enumerator()
+    {
+        var stack = new MyStack<int>();
+        stack.Push(1);
+        stack.Push(2);
+        stack.Push(3);
+
+        IEnumerator<int> enumerator = ((IEnumerable<int>)stack).GetEnumerator();
+
+        Assert.NotNull(enumerator);
+    }
+
+    [Fact]
+    public void GetEnumerator_Should_Traverse_Stack_Elements()
+    {
+        var stack = new MyStack<int>();
+        stack.Push(1);
+        stack.Push(2);
+        stack.Push(3);
+
+        List<int> elements = new List<int>();
+        foreach (int item in stack)
+        {
+            elements.Add(item);
+        }
+
+        Assert.Equal(new List<int> { 3, 2, 1 }, elements);
+    }
 }
