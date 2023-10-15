@@ -14,9 +14,9 @@ namespace CollectionRealisation
         //num of elements is allredy set to _items 
         private int _size;
 
-        public event Action<T> Pushed;
-        public event Action<T> Popped;
-        public event Action Cleared;
+        public event Action<T>? Pushed;
+        public event Action<T>? Popped;
+        public event Action? Cleared;
 
         //reference to ctor with int param and pass default capacity
         public MyStack() : this(DefaultCapacity)
