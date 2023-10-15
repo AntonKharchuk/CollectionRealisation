@@ -139,7 +139,7 @@ namespace CollectionRealisation
                 throw new InvalidDataException("Arr rank is not 1");
             }
 
-            if (!array.GetType().GetElementType().IsAssignableFrom(typeof(T)))
+            if (!array.GetType().GetElementType()!.IsAssignableFrom(typeof(T)))
             {
                 throw new ArgumentException(nameof(array));
             }
