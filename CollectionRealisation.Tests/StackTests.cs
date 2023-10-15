@@ -178,4 +178,28 @@ public class StackTests
 
         Assert.Throws<InvalidOperationException>(() => stack.Pop());
     }
+
+    [Fact]
+    public void Push_Should_Add_Item_To_The_Top_Of_The_Stack()
+    {
+        var stack = new MyStack<int>();
+
+        stack.Push(1);
+        stack.Push(2);
+
+        Assert.Equal(2, stack.Count); 
+        Assert.Equal(2, stack.Peek());
+    }
+
+    [Fact]
+    public void Push_Should_Invoke_Pushed_Event()
+    {
+        var stack = new MyStack<int>();
+        int pushedValue = 0;
+        stack.Pushed += value => pushedValue = value;
+
+        stack.Push(3);
+
+        Assert.Equal(3, pushedValue); 
+    }
 }
