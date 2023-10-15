@@ -202,4 +202,17 @@ public class StackTests
 
         Assert.Equal(3, pushedValue); 
     }
+
+    [Fact]
+    public void ToString_Should_Return_Correct_String_Representation()
+    {
+        var stack = new MyStack<int>();
+        stack.Push(1);
+        stack.Push(2);
+
+        string result = stack.ToString();
+
+        Assert.Equal("Count = 2", result);
+    }
+
 }
