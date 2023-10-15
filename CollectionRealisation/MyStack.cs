@@ -139,6 +139,11 @@ namespace CollectionRealisation
                 throw new InvalidDataException("Arr rank is not 1");
             }
 
+            if (!array.GetType().GetElementType().IsAssignableFrom(typeof(T)))
+            {
+                throw new ArgumentException(nameof(array));
+            }
+
             try
             {
                 Array.Copy(_items, 0, array, index, _size);
@@ -153,7 +158,6 @@ namespace CollectionRealisation
         public void CopyTo(T[] array, int index)
         {
             CopyTo((Array)array, index);
-            // The CopyTo(T[] array, int index) method now delegates to the CopyTo(Array array, int index) method.
         }
 
         public class MyStackEnumerator : IEnumerator<T>
