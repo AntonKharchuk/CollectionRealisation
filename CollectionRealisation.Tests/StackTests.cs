@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 
 namespace CollectionRealisation;
@@ -233,9 +234,9 @@ public class StackTests
     public void CopyTo_Should_Throw_ArgumentNullException_If_Array_Is_Null()
     {
         var stack = new MyStack<int>();
-        int[] array = null;
+        int[] array = null!;
 
-        Assert.Throws<ArgumentNullException>(() => stack.CopyTo(array, 0));
+        Assert.Throws<ArgumentNullException>(() => stack.CopyTo(array!, 0));
     }
 
     [Fact]
@@ -256,4 +257,66 @@ public class StackTests
         Assert.Throws<ArgumentException>(() => stack.CopyTo(array, 0));
     }
 
+    [Fact]
+    public void Current_Property_Returns_Current_Element()
+    {
+        var stack = new MyStack<int>();
+        stack.Push(1);
+        stack.Push(2);
+        var enumerator = stack.GetEnumerator();
+        enumerator.MoveNext();
+        var current = enumerator.Current;
+
+        Assert.Equal(2, current);
+    }
+
+    [Fact]
+    public void IEnumerator_Current_Property_Returns_Current_Element()
+    {
+        var stack = new MyStack<int>();
+        stack.Push(1);
+        stack.Push(2);
+        var enumerator = stack.GetEnumerator();
+        enumerator.MoveNext();
+        var current = (enumerator as IEnumerator)?.Current;
+
+        Assert.Equal(2, current);
+    }
+
+    [Fact]
+    public void MoveNext_Should_Move_To_Next_Element()
+    {
+        var stack = new MyStack<int>();
+        stack.Push(1);
+        stack.Push(2);
+        var enumerator = stack.GetEnumerator();
+
+        var result1 = enumerator.MoveNext();
+        var result2 = enumerator.MoveNext();
+        var result3 = enumerator.MoveNext();
+
+        Assert.True(result1);
+        Assert.True(result2);
+        Assert.False(result3);
+    }
+
+    [Fact]
+    public void Reset_Should_Reset_Enumerator()
+    {
+        var stack = new MyStack<int>();
+        stack.Push(1);
+        stack.Push(2);
+        var enumerator = stack.GetEnumerator();
+        enumerator.MoveNext();
+
+        var firstCurrent= enumerator.Current;
+
+        enumerator.Reset();
+
+        enumerator.MoveNext();
+
+        var secondCurrent = enumerator.Current;
+
+        Assert.Equal(firstCurrent, secondCurrent);
+    }
 }
