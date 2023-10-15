@@ -156,4 +156,26 @@ public class StackTests
 
         Assert.Throws<InvalidOperationException>(() => stack.Peek());
     }
+
+    [Fact]
+    public void Pop_Should_Return_Top_Element_And_Remove_It()
+    {
+        var stack = new MyStack<int>();
+        stack.Push(1);
+        stack.Push(2);
+        stack.Push(3);
+
+        var poppedValue = stack.Pop();
+
+        Assert.Equal(3, poppedValue); 
+        Assert.Equal(2, stack.Count); 
+    }
+
+    [Fact]
+    public void Pop_Should_Throw_InvalidOperationException_On_Empty_Stack()
+    {
+        var stack = new MyStack<int>();
+
+        Assert.Throws<InvalidOperationException>(() => stack.Pop());
+    }
 }
