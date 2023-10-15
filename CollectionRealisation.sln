@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CollectionRealisation", "Co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CollectionRealisation.ConsoleDemo", "CollectionRealisation.ConsoleDemo\CollectionRealisation.ConsoleDemo.csproj", "{2C47A1B7-0CF5-44D5-B80F-A0216DDDABB3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollectionRealisation.Tests", "CollectionRealisation.Tests\CollectionRealisation.Tests.csproj", "{6726513E-4E7B-4D6C-AE03-ECD744870741}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{2C47A1B7-0CF5-44D5-B80F-A0216DDDABB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C47A1B7-0CF5-44D5-B80F-A0216DDDABB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2C47A1B7-0CF5-44D5-B80F-A0216DDDABB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6726513E-4E7B-4D6C-AE03-ECD744870741}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6726513E-4E7B-4D6C-AE03-ECD744870741}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6726513E-4E7B-4D6C-AE03-ECD744870741}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6726513E-4E7B-4D6C-AE03-ECD744870741}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
