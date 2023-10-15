@@ -215,4 +215,45 @@ public class StackTests
         Assert.Equal("Count = 2", result);
     }
 
+    [Fact]
+    public void CopyTo_Should_Copy_Stack_Elements_To_Array()
+    {
+        var stack = new MyStack<int>();
+        stack.Push(1);
+        stack.Push(2);
+        stack.Push(3);
+        int[] array = new int[5];
+
+        stack.CopyTo(array, 1);
+
+        Assert.Equal(new int[] { 0, 3, 2, 1, 0 }, array);
+    }
+
+    [Fact]
+    public void CopyTo_Should_Throw_ArgumentNullException_If_Array_Is_Null()
+    {
+        var stack = new MyStack<int>();
+        int[] array = null;
+
+        Assert.Throws<ArgumentNullException>(() => stack.CopyTo(array, 0));
+    }
+
+    [Fact]
+    public void CopyTo_Should_Throw_InvalidDataException_If_Array_Rank_Is_Not_1()
+    {
+        var stack = new MyStack<int>();
+        int[,] array = new int[2, 2];
+
+        Assert.Throws<InvalidDataException>(() => stack.CopyTo(array, 0));
+    }
+
+    [Fact]
+    public void CopyTo_Should_Throw_ArgumentException_If_Array_Type_Mismatch()
+    {
+        var stack = new MyStack<int>();
+        double[] array = new double[5];
+
+        Assert.Throws<ArgumentException>(() => stack.CopyTo(array, 0));
+    }
+
 }
