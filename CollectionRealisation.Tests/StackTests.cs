@@ -255,7 +255,7 @@ public class StackTests
             stack.Push(1);
 
             Assert.Equal(stack.Count, defaultCapacity+1);
-    }
+        }
     }
 
     public class CopyToTests

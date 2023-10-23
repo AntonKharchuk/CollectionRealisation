@@ -143,16 +143,8 @@ namespace CollectionRealisation
             {
                 throw new ArgumentException(nameof(array));
             }
-
-            try
-            {
-                Array.Copy(_items, 0, array, index, _size);
-                Array.Reverse(array, index, _size);
-            }
-            catch (ArrayTypeMismatchException)
-            {
-                throw new ArgumentException(nameof(array));
-            }
+            Array.Copy(_items, 0, array, index, _size);
+            Array.Reverse(array, index, _size);
         }
 
         public void CopyTo(T[] array, int index)
