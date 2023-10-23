@@ -5,58 +5,61 @@ namespace CollectionRealisation;
 
 public class StackTests
 {
-    [Fact]
-    public void Constructor_WithNegativeCapacity_ThrowsArgumentOutOfRangeException()
+    public class PropertiesTests
     {
-        // Arrange
-        int capacity = -1;
+        [Fact]
+        public void Constructor_WithNegativeCapacity_ThrowsArgumentOutOfRangeException()
+        {
+            // Arrange
+            int capacity = -1;
 
-        // Act and Assert
-        Assert.Throws<ArgumentOutOfRangeException>(() => new MyStack<int>(capacity));
-    }
+            // Act and Assert
+            Assert.Throws<ArgumentOutOfRangeException>(() => new MyStack<int>(capacity));
+        }
 
-    [Fact]
-    public void Count_Property_Should_Return_Correct_Value()
-    {
-        var stack = new MyStack<int>();
+        [Fact]
+        public void Count_Property_Should_Return_Correct_Value()
+        {
+            var stack = new MyStack<int>();
 
-        stack.Push(1);
-        stack.Push(2);
-        stack.Push(3);
+            stack.Push(1);
+            stack.Push(2);
+            stack.Push(3);
 
-        Assert.Equal(3, stack.Count);
-    }
-    [Fact]
-    public void IsReadOnly_Property_Should_Always_Return_False()
-    {
-        var stack = new MyStack<int>();
+            Assert.Equal(3, stack.Count);
+        }
+        [Fact]
+        public void IsReadOnly_Property_Should_Always_Return_False()
+        {
+            var stack = new MyStack<int>();
 
-        Assert.False(stack.IsReadOnly);
-    }
-    [Fact]
-    public void IsSynchronized_Property_Should_Always_Return_False()
-    {
-        var stack = new MyStack<int>();
+            Assert.Equal(false, stack.IsReadOnly);
+        }
+        [Fact]
+        public void IsSynchronized_Property_Should_Always_Return_False()
+        {
+            var stack = new MyStack<int>();
 
-        Assert.False(stack.IsSynchronized);
-    }
-    [Fact]
-    public void SyncRoot_Property_Should_Return_This_Instance()
-    {
-        var stack = new MyStack<int>();
+            Assert.Equal(false, stack.IsSynchronized);
+        }
+        [Fact]
+        public void SyncRoot_Property_Should_Return_This_Instance()
+        {
+            var stack = new MyStack<int>();
 
-        Assert.Same(stack, stack.SyncRoot);
-    }
-    [Fact]
-    public void ToString_Should_Return_Correct_String_Representation()
-    {
-        var stack = new MyStack<int>();
-        stack.Push(1);
-        stack.Push(2);
+            Assert.Equal(stack, stack.SyncRoot);
+        }
+        [Fact]
+        public void ToString_Should_Return_Correct_String_Representation()
+        {
+            var stack = new MyStack<int>();
+            stack.Push(1);
+            stack.Push(2);
 
-        string result = stack.ToString();
+            string result = stack.ToString();
 
-        Assert.Equal("Count = 2", result);
+            Assert.Equal("Count = 2", result);
+        }
     }
     public class ClearTests
     {
