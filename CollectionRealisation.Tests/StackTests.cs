@@ -37,173 +37,6 @@ public class StackTests
 
         Assert.Same(stack, stack.SyncRoot);
     }
-
-    [Fact]
-    public void Clear_Should_Clear_Stack_And_Invoke_Cleared_Event()
-    {
-        var stack = new MyStack<int>();
-        stack.Push(1);
-        stack.Push(2);
-        stack.Push(3);
-
-        stack.Clear();
-
-        Assert.Empty(stack);
-    }
-
-    [Fact]
-    public void Clear_Should_Invoke_Cleared_Event()
-    {
-        var stack = new MyStack<int>();
-        bool clearedEventInvoked = false;
-        stack.Cleared += () => clearedEventInvoked = true;
-
-        stack.Push(1);
-        stack.Clear();
-
-        Assert.True(clearedEventInvoked);
-    }
-    [Fact]
-    public void Contains_Should_Return_True_When_Item_Exists()
-    {
-        var stack = new MyStack<int>();
-        stack.Push(1);
-        stack.Push(2);
-        stack.Push(3);
-
-        Assert.True(stack.Contains(2));
-    }
-
-    [Fact]
-    public void Contains_Should_Return_False_When_Item_Does_Not_Exist()
-    {
-        var stack = new MyStack<int>();
-        stack.Push(1);
-        stack.Push(2);
-        stack.Push(3);
-
-        Assert.False(stack.Contains(4));
-    }
-
-    [Fact]
-    public void Contains_Should_Return_False_For_Empty_Stack()
-    {
-        var stack = new MyStack<int>();
-
-        Assert.False(stack.Contains(1));
-    }
-
-    [Fact]
-    public void GetEnumerator_Should_Return_Enumerator_For_Generic_Enumerable()
-    {
-        var stack = new MyStack<int>();
-        stack.Push(1);
-        stack.Push(2);
-        stack.Push(3);
-
-        IEnumerator<int> enumerator = stack.GetEnumerator();
-
-        Assert.NotNull(enumerator);
-    }
-
-    [Fact]
-    public void GetEnumerator_Should_Return_Non_Generic_Enumerator()
-    {
-        var stack = new MyStack<int>();
-        stack.Push(1);
-        stack.Push(2);
-        stack.Push(3);
-
-        IEnumerator<int> enumerator = ((IEnumerable<int>)stack).GetEnumerator();
-
-        Assert.NotNull(enumerator);
-    }
-
-    [Fact]
-    public void GetEnumerator_Should_Traverse_Stack_Elements()
-    {
-        var stack = new MyStack<int>();
-        stack.Push(1);
-        stack.Push(2);
-        stack.Push(3);
-
-        List<int> elements = new List<int>();
-        foreach (int item in stack)
-        {
-            elements.Add(item);
-        }
-
-        Assert.Equal(new List<int> { 3, 2, 1 }, elements);
-    }
-
-    [Fact]
-    public void Peek_Should_Return_Top_Element_Without_Removing_It()
-    {
-        var stack = new MyStack<int>();
-        stack.Push(1);
-        stack.Push(2);
-        stack.Push(3);
-
-        var peekedValue = stack.Peek();
-
-        Assert.Equal(3, peekedValue); 
-        Assert.Equal(3, stack.Count); 
-    }
-
-    [Fact]
-    public void Peek_Should_Throw_InvalidOperationException_On_Empty_Stack()
-    {
-        var stack = new MyStack<int>();
-
-        Assert.Throws<InvalidOperationException>(() => stack.Peek());
-    }
-
-    [Fact]
-    public void Pop_Should_Return_Top_Element_And_Remove_It()
-    {
-        var stack = new MyStack<int>();
-        stack.Push(1);
-        stack.Push(2);
-        stack.Push(3);
-
-        var poppedValue = stack.Pop();
-
-        Assert.Equal(3, poppedValue); 
-        Assert.Equal(2, stack.Count); 
-    }
-
-    [Fact]
-    public void Pop_Should_Throw_InvalidOperationException_On_Empty_Stack()
-    {
-        var stack = new MyStack<int>();
-
-        Assert.Throws<InvalidOperationException>(() => stack.Pop());
-    }
-
-    [Fact]
-    public void Push_Should_Add_Item_To_The_Top_Of_The_Stack()
-    {
-        var stack = new MyStack<int>();
-
-        stack.Push(1);
-        stack.Push(2);
-
-        Assert.Equal(2, stack.Count); 
-        Assert.Equal(2, stack.Peek());
-    }
-
-    [Fact]
-    public void Push_Should_Invoke_Pushed_Event()
-    {
-        var stack = new MyStack<int>();
-        int pushedValue = 0;
-        stack.Pushed += value => pushedValue = value;
-
-        stack.Push(3);
-
-        Assert.Equal(3, pushedValue); 
-    }
-
     [Fact]
     public void ToString_Should_Return_Correct_String_Representation()
     {
@@ -215,108 +48,299 @@ public class StackTests
 
         Assert.Equal("Count = 2", result);
     }
-
-    [Fact]
-    public void CopyTo_Should_Copy_Stack_Elements_To_Array()
+    public class ClearTests
     {
-        var stack = new MyStack<int>();
-        stack.Push(1);
-        stack.Push(2);
-        stack.Push(3);
-        int[] array = new int[5];
+        [Fact]
+        public void Clear_Should_Clear_Stack_And_Invoke_Cleared_Event()
+        {
+            var stack = new MyStack<int>();
+            stack.Push(1);
+            stack.Push(2);
+            stack.Push(3);
 
-        stack.CopyTo(array, 1);
+            stack.Clear();
 
-        Assert.Equal(new int[] { 0, 3, 2, 1, 0 }, array);
+            Assert.Empty(stack);
+        }
+
+        [Fact]
+        public void Clear_Should_Invoke_Cleared_Event()
+        {
+            var stack = new MyStack<int>();
+            bool clearedEventInvoked = false;
+            stack.Cleared += () => clearedEventInvoked = true;
+
+            stack.Push(1);
+            stack.Clear();
+
+            Assert.True(clearedEventInvoked);
+        }
     }
 
-    [Fact]
-    public void CopyTo_Should_Throw_ArgumentNullException_If_Array_Is_Null()
+    public class ContainsTests
     {
-        var stack = new MyStack<int>();
-        int[] array = null!;
+        [Fact]
+        public void Contains_Should_Return_True_When_Item_Exists()
+        {
+            var stack = new MyStack<int>();
+            stack.Push(1);
+            stack.Push(2);
+            stack.Push(3);
 
-        Assert.Throws<ArgumentNullException>(() => stack.CopyTo(array!, 0));
+            Assert.True(stack.Contains(2));
+        }
+
+        [Fact]
+        public void Contains_Should_Return_False_When_Item_Does_Not_Exist()
+        {
+            var stack = new MyStack<int>();
+            stack.Push(1);
+            stack.Push(2);
+            stack.Push(3);
+
+            Assert.False(stack.Contains(4));
+        }
+
+        [Fact]
+        public void Contains_Should_Return_False_For_Empty_Stack()
+        {
+            var stack = new MyStack<int>();
+
+            Assert.False(stack.Contains(1));
+        }
     }
 
-    [Fact]
-    public void CopyTo_Should_Throw_InvalidDataException_If_Array_Rank_Is_Not_1()
+    public class GetEnumeratorTests
     {
-        var stack = new MyStack<int>();
-        int[,] array = new int[2, 2];
+        [Fact]
+        public void GetEnumerator_Should_Return_Enumerator_For_Generic_Enumerable()
+        {
+            var stack = new MyStack<int>();
+            stack.Push(1);
+            stack.Push(2);
+            stack.Push(3);
 
-        Assert.Throws<InvalidDataException>(() => stack.CopyTo(array, 0));
+            IEnumerator<int> enumerator = stack.GetEnumerator();
+
+            Assert.NotNull(enumerator);
+        }
+
+        [Fact]
+        public void GetEnumerator_Should_Return_Non_Generic_Enumerator()
+        {
+            var stack = new MyStack<int>();
+            stack.Push(1);
+            stack.Push(2);
+            stack.Push(3);
+
+            IEnumerator<int> enumerator = ((IEnumerable<int>)stack).GetEnumerator();
+
+            Assert.NotNull(enumerator);
+        }
+
+        [Fact]
+        public void GetEnumerator_Should_Traverse_Stack_Elements()
+        {
+            var stack = new MyStack<int>();
+            stack.Push(1);
+            stack.Push(2);
+            stack.Push(3);
+
+            List<int> elements = new List<int>();
+            foreach (int item in stack)
+            {
+                elements.Add(item);
+            }
+
+            Assert.Equal(new List<int> { 3, 2, 1 }, elements);
+        }
+
     }
 
-    [Fact]
-    public void CopyTo_Should_Throw_ArgumentException_If_Array_Type_Mismatch()
+    public class PeekTests
     {
-        var stack = new MyStack<int>();
-        double[] array = new double[5];
+        [Fact]
+        public void Peek_Should_Return_Top_Element_Without_Removing_It()
+        {
+            var stack = new MyStack<int>();
+            stack.Push(1);
+            stack.Push(2);
+            stack.Push(3);
 
-        Assert.Throws<ArgumentException>(() => stack.CopyTo(array, 0));
+            var peekedValue = stack.Peek();
+
+            Assert.Equal(3, peekedValue);
+            Assert.Equal(3, stack.Count);
+        }
+
+        [Fact]
+        public void Peek_Should_Throw_InvalidOperationException_On_Empty_Stack()
+        {
+            var stack = new MyStack<int>();
+
+            Assert.Throws<InvalidOperationException>(() => stack.Peek());
+        }
+    }
+    public class PopTests
+    {
+        [Fact]
+        public void Pop_Should_Return_Top_Element_And_Remove_It()
+        {
+            var stack = new MyStack<int>();
+            stack.Push(1);
+            stack.Push(2);
+            stack.Push(3);
+
+            var poppedValue = stack.Pop();
+
+            Assert.Equal(3, poppedValue);
+            Assert.Equal(2, stack.Count);
+        }
+
+        [Fact]
+        public void Pop_Should_Throw_InvalidOperationException_On_Empty_Stack()
+        {
+            var stack = new MyStack<int>();
+
+            Assert.Throws<InvalidOperationException>(() => stack.Pop());
+        }
     }
 
-    [Fact]
-    public void Current_Property_Returns_Current_Element()
+    public class PushTests
     {
-        var stack = new MyStack<int>();
-        stack.Push(1);
-        stack.Push(2);
-        var enumerator = stack.GetEnumerator();
-        enumerator.MoveNext();
-        var current = enumerator.Current;
+        [Fact]
+        public void Push_Should_Add_Item_To_The_Top_Of_The_Stack()
+        {
+            var stack = new MyStack<int>();
 
-        Assert.Equal(2, current);
+            stack.Push(1);
+            stack.Push(2);
+
+            Assert.Equal(2, stack.Count);
+            Assert.Equal(2, stack.Peek());
+        }
+
+        [Fact]
+        public void Push_Should_Invoke_Pushed_Event()
+        {
+            var stack = new MyStack<int>();
+            int pushedValue = 0;
+            stack.Pushed += value => pushedValue = value;
+
+            stack.Push(3);
+
+            Assert.Equal(3, pushedValue);
+        }
     }
 
-    [Fact]
-    public void IEnumerator_Current_Property_Returns_Current_Element()
+    public class CopyToTests
     {
-        var stack = new MyStack<int>();
-        stack.Push(1);
-        stack.Push(2);
-        var enumerator = stack.GetEnumerator();
-        enumerator.MoveNext();
-        var current = (enumerator as IEnumerator)?.Current;
 
-        Assert.Equal(2, current);
+        [Fact]
+        public void CopyTo_Should_Copy_Stack_Elements_To_Array()
+        {
+            var stack = new MyStack<int>();
+            stack.Push(1);
+            stack.Push(2);
+            stack.Push(3);
+            int[] array = new int[5];
+
+            stack.CopyTo(array, 1);
+
+            Assert.Equal(new int[] { 0, 3, 2, 1, 0 }, array);
+        }
+
+        [Fact]
+        public void CopyTo_Should_Throw_ArgumentNullException_If_Array_Is_Null()
+        {
+            var stack = new MyStack<int>();
+            int[] array = null!;
+
+            Assert.Throws<ArgumentNullException>(() => stack.CopyTo(array!, 0));
+        }
+
+        [Fact]
+        public void CopyTo_Should_Throw_InvalidDataException_If_Array_Rank_Is_Not_1()
+        {
+            var stack = new MyStack<int>();
+            int[,] array = new int[2, 2];
+
+            Assert.Throws<InvalidDataException>(() => stack.CopyTo(array, 0));
+        }
+
+        [Fact]
+        public void CopyTo_Should_Throw_ArgumentException_If_Array_Type_Mismatch()
+        {
+            var stack = new MyStack<int>();
+            double[] array = new double[5];
+
+            Assert.Throws<ArgumentException>(() => stack.CopyTo(array, 0));
+        }
     }
 
-    [Fact]
-    public void MoveNext_Should_Move_To_Next_Element()
+    public class IEnumeratorTests
     {
-        var stack = new MyStack<int>();
-        stack.Push(1);
-        stack.Push(2);
-        var enumerator = stack.GetEnumerator();
+        [Fact]
+        public void Current_Property_Returns_Current_Element()
+        {
+            var stack = new MyStack<int>();
+            stack.Push(1);
+            stack.Push(2);
+            var enumerator = stack.GetEnumerator();
+            enumerator.MoveNext();
+            var current = enumerator.Current;
 
-        var result1 = enumerator.MoveNext();
-        var result2 = enumerator.MoveNext();
-        var result3 = enumerator.MoveNext();
+            Assert.Equal(2, current);
+        }
 
-        Assert.True(result1);
-        Assert.True(result2);
-        Assert.False(result3);
-    }
+        [Fact]
+        public void IEnumerator_Current_Property_Returns_Current_Element()
+        {
+            var stack = new MyStack<int>();
+            stack.Push(1);
+            stack.Push(2);
+            var enumerator = stack.GetEnumerator();
+            enumerator.MoveNext();
+            var current = (enumerator as IEnumerator)?.Current;
 
-    [Fact]
-    public void Reset_Should_Reset_Enumerator()
-    {
-        var stack = new MyStack<int>();
-        stack.Push(1);
-        stack.Push(2);
-        var enumerator = stack.GetEnumerator();
-        enumerator.MoveNext();
+            Assert.Equal(2, current);
+        }
 
-        var firstCurrent= enumerator.Current;
+        [Fact]
+        public void MoveNext_Should_Move_To_Next_Element()
+        {
+            var stack = new MyStack<int>();
+            stack.Push(1);
+            stack.Push(2);
+            var enumerator = stack.GetEnumerator();
 
-        enumerator.Reset();
+            var result1 = enumerator.MoveNext();
+            var result2 = enumerator.MoveNext();
+            var result3 = enumerator.MoveNext();
 
-        enumerator.MoveNext();
+            Assert.True(result1);
+            Assert.True(result2);
+            Assert.False(result3);
+        }
 
-        var secondCurrent = enumerator.Current;
+        [Fact]
+        public void Reset_Should_Reset_Enumerator()
+        {
+            var stack = new MyStack<int>();
+            stack.Push(1);
+            stack.Push(2);
+            var enumerator = stack.GetEnumerator();
+            enumerator.MoveNext();
 
-        Assert.Equal(firstCurrent, secondCurrent);
+            var firstCurrent = enumerator.Current;
+
+            enumerator.Reset();
+
+            enumerator.MoveNext();
+
+            var secondCurrent = enumerator.Current;
+
+            Assert.Equal(firstCurrent, secondCurrent);
+        }
     }
 }
