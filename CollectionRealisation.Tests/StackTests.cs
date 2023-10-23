@@ -6,6 +6,16 @@ namespace CollectionRealisation;
 public class StackTests
 {
     [Fact]
+    public void Constructor_WithNegativeCapacity_ThrowsArgumentOutOfRangeException()
+    {
+        // Arrange
+        int capacity = -1;
+
+        // Act and Assert
+        Assert.Throws<ArgumentOutOfRangeException>(() => new MyStack<int>(capacity));
+    }
+
+    [Fact]
     public void Count_Property_Should_Return_Correct_Value()
     {
         var stack = new MyStack<int>();
@@ -231,6 +241,21 @@ public class StackTests
 
             Assert.Equal(3, pushedValue);
         }
+        [Fact]
+        public void Push_Should_Add_Capacity()
+        {
+            var stack = new MyStack<int>();
+
+            var defaultCapacity = MyStack<int>.DefaultCapacity;
+
+            for (int i = 0; i < defaultCapacity; i++)
+            {
+                stack.Push(default);
+            }
+            stack.Push(1);
+
+            Assert.Equal(stack.Count, defaultCapacity+1);
+    }
     }
 
     public class CopyToTests
