@@ -304,6 +304,16 @@ public class StackTests
 
             Assert.Throws<ArgumentException>(() => stack.CopyTo(array, 0));
         }
+        [Fact]
+        public void CopyTo_Should_Copy_Empty_Stack_To_Array()
+        {
+            var stack = new MyStack<int>();
+            int[] array = new int[5];
+
+            stack.CopyTo(array, 1);
+
+            Assert.Equal(new int[] { 0, 0, 0, 0, 0 }, array);
+        }
     }
 
     public class IEnumeratorTests
