@@ -6,7 +6,7 @@ namespace CollectionRealisation
     public class MyStack<T>: IEnumerable<T>, ICollection 
     {
         //use this capacity with ctor()
-        private const int DefaultCapacity = 4;
+        public const int DefaultCapacity = 4;
 
         //the arr, where data is stored
         private T[] _items;
