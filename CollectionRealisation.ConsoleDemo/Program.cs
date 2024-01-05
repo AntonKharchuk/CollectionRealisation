@@ -27,10 +27,12 @@ ShowIEnumerable<double>.Show(myDoubleStack);
 //create char list
 var myCharStack = new MyStack<char>();
 
+
+//subscribe for events
 myCharStack.Pushed += item => Console.WriteLine($"Pushed: {item}");
 myCharStack.Popped += item => Console.WriteLine($"Popped: {item}");
 myCharStack.Cleared += () => Console.WriteLine("Cleared");
-
+//subsribtion is working, all messages are shown
 
 
 

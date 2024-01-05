@@ -14,6 +14,7 @@ namespace CollectionRealisation
         //num of elements is allredy set to _items 
         private int _size;
 
+        //Added missed events
         public event Action<T>? Pushed;
         public event Action<T>? Popped;
         public event Action? Cleared;
@@ -48,6 +49,8 @@ namespace CollectionRealisation
         {
             Array.Clear(_items, 0, _size);
             _size = 0;
+
+            //Call Cleared ivent while Clearing stack
             Cleared?.Invoke();
         }
 
@@ -92,6 +95,7 @@ namespace CollectionRealisation
                 var result = _items[_size];
                 _items[_size] = default(T)!;
 
+                //Call Popped ivent while Popping item
                 Popped?.Invoke(result);
 
                 return result;
@@ -109,6 +113,7 @@ namespace CollectionRealisation
 
             _items[_size] = item;
             _size++;
+            //Call pushed ivent while pushing item
             Pushed?.Invoke(item);
         }
 
